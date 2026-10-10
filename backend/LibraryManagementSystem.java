@@ -61,7 +61,7 @@ class Student {
 
 // --- 2. Library Management System (Main Logic) ---
 
-class LibraryManagementSystem {
+public class LibraryManagementSystem {
     private List<Book> books;
     private List<Student> students;
     private Scanner scanner;
@@ -430,14 +430,26 @@ class LibraryManagementSystem {
         server.createContext("/api/", exchange -> handleApi(this, exchange));
         server.createContext("/", exchange -> {
             String path = exchange.getRequestURI().getPath();
-            if (!(path.equals("/") || path.equals("/index.html"))) {
-                send(exchange, 404, "text/plain; charset=utf-8", "Not found".getBytes(StandardCharsets.UTF_8)); return;
+            String file;
+            String contentType;
+            if (path.equals("/") || path.equals("/index.html")) {
+                file = "frontend/index.html";
+                contentType = "text/html; charset=utf-8";
+            } else if (path.equals("/app.js")) {
+                file = "frontend/app.js";
+                contentType = "text/javascript; charset=utf-8";
+            } else if (path.equals("/styles.css")) {
+                file = "frontend/styles.css";
+                contentType = "text/css; charset=utf-8";
+            } else {
+                send(exchange, 404, "text/plain; charset=utf-8", "Not found".getBytes(StandardCharsets.UTF_8));
+                return;
             }
             try {
-                byte[] html = java.nio.file.Files.readAllBytes(java.nio.file.Paths.get("index.html"));
-                send(exchange, 200, "text/html; charset=utf-8", html);
+                byte[] asset = java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(file));
+                send(exchange, 200, contentType, asset);
             } catch (IOException e) {
-                send(exchange, 500, "text/plain; charset=utf-8", "Could not read index.html".getBytes(StandardCharsets.UTF_8));
+                send(exchange, 500, "text/plain; charset=utf-8", "Could not read frontend asset".getBytes(StandardCharsets.UTF_8));
             }
         });
         server.setExecutor(java.util.concurrent.Executors.newFixedThreadPool(4));

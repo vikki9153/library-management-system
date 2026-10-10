@@ -11,7 +11,7 @@ if not defined JDK_BIN (
   exit /b 1
 )
 if not exist build mkdir build
-"%JDK_BIN%\javac.exe" --add-modules jdk.httpserver -d build lib.java
+"%JDK_BIN%\javac.exe" --add-modules jdk.httpserver -d build backend\LibraryManagementSystem.java
 if errorlevel 1 (
   echo Java compilation failed.
   pause
