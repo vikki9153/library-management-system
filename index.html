@@ -1,0 +1,251 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f6f2" />
+    <title>Page & Pine — Library</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside id="sidebar">
+        <div class="brand">
+          <div class="brandmark">⌁</div>
+          <div class="brandname">
+            Page &amp; Pine<small>Library desk</small>
+          </div>
+        </div>
+        <div>
+          <div class="navlabel">Workspace</div>
+          <nav class="nav" id="nav">
+            <button class="active" data-page="dashboard">
+              <span class="navicon">⌂</span>Overview
+            </button>
+            <button data-page="books">
+              <span class="navicon">▤</span>Books
+            </button>
+            <button data-page="students">
+              <span class="navicon">♙</span>Students
+            </button>
+            <button data-page="circulation">
+              <span class="navicon">↔</span>Circulation
+            </button>
+          </nav>
+        </div>
+        <div class="sidebottom">
+          <div class="navlabel">Your account</div>
+          <div class="profile">
+            <div class="avatar">AM</div>
+            <div><b>Alex Morgan</b><small>Library administrator</small></div>
+          </div>
+        </div>
+      </aside>
+      <main>
+        <div class="topbar">
+          <div class="crumb">
+            <button class="mobilemenu" id="menuBtn" aria-label="Open menu">
+              ☰</button
+            ><span>Library</span> &nbsp;/&nbsp; <b id="crumb">Overview</b>
+          </div>
+          <div class="top-actions">
+            <span class="date" id="today"></span
+            ><button class="btn" id="quickIssue">↔ &nbsp;Issue a book</button>
+          </div>
+        </div>
+        <section class="page active" id="dashboard">
+          <div class="heading">
+            <div>
+              <div class="eyebrow">Your library at a glance</div>
+              <h1>Your library, in good order.</h1>
+              <p>A little overview of what’s happening between the shelves.</p>
+            </div>
+            <button class="btn primary" data-open="book">
+              ＋ &nbsp;Add a book
+            </button>
+          </div>
+          <div class="stats">
+            <article class="stat">
+              <div class="stathead">
+                Books in collection <span class="staticon">▤</span>
+              </div>
+              <strong id="statBooks">—</strong>
+              <div class="statfoot">Across your library</div>
+            </article>
+            <article class="stat">
+              <div class="stathead">
+                Available to borrow <span class="staticon">✳</span>
+              </div>
+              <strong id="statAvailable">—</strong>
+              <div class="statfoot">Ready for their next reader</div>
+            </article>
+            <article class="stat">
+              <div class="stathead">
+                Currently on loan <span class="staticon">↗</span>
+              </div>
+              <strong id="statIssued">—</strong>
+              <div class="statfoot">With your readers</div>
+            </article>
+            <article class="stat">
+              <div class="stathead">
+                Registered readers <span class="staticon">♙</span>
+              </div>
+              <strong id="statStudents">—</strong>
+              <div class="statfoot">And growing, one page at a time</div>
+            </article>
+          </div>
+          <div class="dashboard-grid">
+            <section class="panel">
+              <div class="panelhead">
+                <h2>Recently added</h2>
+                <button class="linkbtn" data-goto="books">View all →</button>
+              </div>
+              <div class="tablewrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Book</th>
+                      <th>Author</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recentBooks"></tbody>
+                </table>
+              </div>
+            </section>
+            <section class="panel">
+              <div class="panelhead">
+                <h2>Library notes</h2>
+                <span class="muted">Recent activity</span>
+              </div>
+              <div class="activity" id="activity"></div>
+            </section>
+          </div>
+          <div class="welcome">
+            <div>
+              <h3>Every good story finds its reader.</h3>
+              <p>Keep your collection close and your shelves in motion.</p>
+            </div>
+            <span class="sprig">🌿</span>
+          </div>
+        </section>
+        <section class="page" id="books">
+          <div class="heading">
+            <div>
+              <div class="eyebrow">The collection</div>
+              <h1>Books</h1>
+              <p>Keep track of every story on your shelves.</p>
+            </div>
+            <button class="btn primary" data-open="book">
+              ＋ &nbsp;Add a book
+            </button>
+          </div>
+          <div class="toolbar">
+            <div class="search">
+              <span>⌕</span
+              ><input id="bookSearch" placeholder="Search title or author…" />
+            </div>
+            <select class="filter" id="bookFilter">
+              <option value="all">All books</option>
+              <option value="available">Available</option>
+              <option value="issued">On loan</option>
+            </select>
+          </div>
+          <div class="panel tablepanel">
+            <table>
+              <thead>
+                <tr>
+                  <th>Book</th>
+                  <th>Author</th>
+                  <th>Book ID</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="booksTable"></tbody>
+            </table>
+          </div>
+        </section>
+        <section class="page" id="students">
+          <div class="heading">
+            <div>
+              <div class="eyebrow">The readers</div>
+              <h1>Students</h1>
+              <p>Meet the people bringing your books to life.</p>
+            </div>
+            <button class="btn primary" data-open="student">
+              ＋ &nbsp;Add a student
+            </button>
+          </div>
+          <div class="toolbar">
+            <div class="search">
+              <span>⌕</span
+              ><input id="studentSearch" placeholder="Search students…" />
+            </div>
+            <span class="muted" id="studentCount"></span>
+          </div>
+          <div class="panel tablepanel">
+            <table>
+              <thead>
+                <tr>
+                  <th>Student</th>
+                  <th>Student ID</th>
+                  <th>Books on loan</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="studentsTable"></tbody>
+            </table>
+          </div>
+        </section>
+        <section class="page" id="circulation">
+          <div class="heading">
+            <div>
+              <div class="eyebrow">Out in the world</div>
+              <h1>Circulation</h1>
+              <p>See what’s borrowed and welcome books back.</p>
+            </div>
+            <button class="btn primary" data-open="issue">
+              ↗ &nbsp;Issue a book
+            </button>
+          </div>
+          <div class="toolbar">
+            <div class="search">
+              <span>⌕</span
+              ><input id="loanSearch" placeholder="Search books or students…" />
+            </div>
+            <span class="muted" id="loanCount"></span>
+          </div>
+          <div class="panel tablepanel">
+            <table>
+              <thead>
+                <tr>
+                  <th>Book</th>
+                  <th>Borrowed by</th>
+                  <th>Book ID</th>
+                  <th>Student ID</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="loansTable"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+    <div class="modalback" id="modalback">
+      <div class="modal">
+        <div class="modalhead">
+          <div>
+            <h2 id="modalTitle">Add a book</h2>
+            <p id="modalSub">A new story for the shelves.</p>
+          </div>
+          <button class="close" id="closeModal" aria-label="Close">×</button>
+        </div>
+        <form id="form"></form>
+      </div>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script src="app.js" defer></script>
+  </body>
+</html>
